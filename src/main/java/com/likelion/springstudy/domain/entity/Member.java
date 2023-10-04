@@ -1,5 +1,6 @@
 package com.likelion.springstudy.domain.entity;
 
+import com.likelion.springstudy.domain.global.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -13,11 +14,11 @@ import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
+@Getter // 일반적으로 Getter 어노테이션만 사용. Setter 사용 지양. 필요할 때만 사용. 비즈니스 로직에서 생성해주는 일이 많기 때문.
 @Table(name = "member")
-public class Member {
+public class Member extends BaseTimeEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본 생성자
     private Long id;
 
     @Column(nullable = false, length = 50)
@@ -26,33 +27,16 @@ public class Member {
     @Column(nullable = false, length = 50)
     private String nickname;
 
-    @CreatedDate
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt;
-
-    @Column(nullable = true, name = "is_deleted")
-    private Boolean isDeleted;
-
-    @Column(nullable = true, name = "deleted_at")
-    private LocalDate deleteAt;
-    /**
-     * 일대일 관계 매핑할 때는 두 테이블 어느 곳에나 외래 키를 둘 수 있습니다.
-     * 익명편지함 서비스를 생각해봤을 때 Member가 Box를 조회할 수도 있지만 Box에서도 Member를 조회할 수 있어야 합니다.
-     * Member과 Box 모두 외래 키를 두어 양방향으로 접근이 가능할 수 있도록 외래키를 양쪽에 두었습니다.
-     */
-    @OneToOne
-    @JoinColumn(name="box_id")
-    private BoxEntity box;
-
-    @Builder
-    public Member(Long id, String name, String password, String nickname) {
-        this.id = id;
+    public Member(String name, String nickname) {
         this.name = name;
-        this.password = password;
         this.nickname = nickname;
+    }
+
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public static Member createMember(String name, String nickname) {
+        return new Member(name, nickname);
     }
 }
