@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.util.Assert;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,13 +15,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(name = "member")
-public class MemberEntity {
+public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    private String password;
 
     @Column(nullable = false, length = 50)
     private String name;
@@ -53,7 +49,7 @@ public class MemberEntity {
     private BoxEntity box;
 
     @Builder
-    public MemberEntity(Long id, String name, String password, String nickname) {
+    public Member(Long id, String name, String password, String nickname) {
         this.id = id;
         this.name = name;
         this.password = password;
