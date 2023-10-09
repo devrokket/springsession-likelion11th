@@ -2,7 +2,7 @@ package com.likelion.springstudy.service;
 
 
 import com.likelion.springstudy.domain.entity.Member;
-import com.likelion.springstudy.dto.response.member.MemberGetResponse;
+import com.likelion.springstudy.dto.response.member.MemberGetResponseDto;
 import com.likelion.springstudy.repository.MemberJpaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +16,12 @@ public class MemberService {
     private final MemberJpaRepository memberRepository;
 
     // 방법1
-    public MemberGetResponse getById(Long id) {
+    public MemberGetResponseDto getById(Long id) {
 //        Member member = memberRepository.findById(id); // findById 메서드는 Optional이기 떄문에 이대로 쓰면 오류 발생.
 
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("해당하는 회원을 찾을 수 없습니다."));
-        return MemberGetResponse.of(member); // of()는 static 메서드기 때문에 따로 인스턴스를 만들지 않아도 바로 호출할 수 있다.
+        return MemberGetResponseDto.of(member); // of()는 static 메서드기 때문에 따로 인스턴스를 만들지 않아도 바로 호출할 수 있다.
     }
 
     // 방법2
@@ -29,5 +29,6 @@ public class MemberService {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("해당하는 회원을 찾을 수 없습니다."));
     }
+
     // 방법3 MemberJpaRepository단에서 메서드로 처리.
 }

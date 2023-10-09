@@ -1,16 +1,16 @@
 package com.likelion.springstudy.controller;
 
 
-import com.likelion.springstudy.dto.request.letter.LetterCreateRequest;
+import com.likelion.springstudy.domain.entity.Letter;
+import com.likelion.springstudy.dto.request.letter.LetterCreateRequestDto;
+import com.likelion.springstudy.dto.response.letter.LetterGetResponseDto;
 import com.likelion.springstudy.service.LetterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/letter")
@@ -18,12 +18,20 @@ import java.net.URI;
 public class LetterController {
     private final LetterService letterService;
     @PostMapping // 다음 parameter가 없을 땐 안 써줘도 됨
-    public ResponseEntity<Void> sendLetter(@RequestBody LetterCreateRequest request) {
-//        String letterId = letterService.create(request);
-//        URI location = new URI.create("/api/letter/");
+    public ResponseEntity<String> sendLetter(@RequestBody LetterCreateRequestDto letterCreateRequest) {
+        return ResponseEntity.ok(letterService.create(letterCreateRequest));
 
+//        URI location = URI.create("/api/letter/");
 //        return ResponseEntity.created(location).build(); // created(location 자리)
-
     }
 
+    @GetMapping
+    public ResponseEntity<List<Letter>> getAllLetter() {
+        return ResponseEntity.ok(letterService.getAll());
+    }
+
+    @GetMapping("/{letterId}")
+    public ResponseEntity<LetterGetResponseDto> getLetter(@PathVariable("letterId") Long letterId) {
+        return ResponseEntity.ok(letterService.get(letterId));
+    }
 }

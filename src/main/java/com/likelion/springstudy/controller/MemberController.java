@@ -1,7 +1,7 @@
 package com.likelion.springstudy.controller;
 
 
-import com.likelion.springstudy.dto.response.member.MemberGetResponse;
+import com.likelion.springstudy.dto.response.member.MemberGetResponseDto;
 import com.likelion.springstudy.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +18,8 @@ public class MemberController {
     @GetMapping("{memberId}")
     // 반환형은 ResponseEntity(스프링 제공), CustomResponse(추상화를 꼭 해야한다. 여러 api에서 사용돼야 하기 때문이다)
     // ResponseEntity<MemberGetResponse> 제네릭 타입 사용. 응답값은 api마다 달라지기 때문
-    public ResponseEntity<MemberGetResponse> getMember(@PathVariable("memberId") Long memberid) // {memberId} 들어온 값을 Long형의 memberId로 변환해줌
+    public ResponseEntity<MemberGetResponseDto> getMember(@PathVariable("memberId") Long memberid) // {memberId} 들어온 값을 Long형의 memberId로 변환해줌
     {
         return ResponseEntity.ok(memberService.getById(memberid));
-
     }
 }

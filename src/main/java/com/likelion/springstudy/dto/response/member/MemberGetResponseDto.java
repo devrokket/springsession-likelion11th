@@ -7,13 +7,15 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class MemberGetResponse {
+public class MemberGetResponseDto {
     // {memberId}는 이미 조회할 때 알고 있기에 Response로 받을 필요 없음
-    @JsonProperty("멤버 이름 key값") // 컴파일 하면 key 값에 '멤버 이름'이 표시됨
+    @JsonProperty("멤버 이름") // 컴파일 하면 key 값에 '멤버 이름'이 표시됨
     private String name;
+
+    @JsonProperty("닉네임")
     private String nickname;
 
-    public static MemberGetResponse of(Member member) { // of 또는 from 메서드를 사용
-        return new MemberGetResponse(member.getName(), member.getNickname());
+    public static MemberGetResponseDto of(Member member) { // of 또는 from 메서드를 사용
+        return new MemberGetResponseDto(member.getName(), member.getNickname());
     }
 }
