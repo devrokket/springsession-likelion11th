@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -17,7 +18,9 @@ public class BoxController {
     private final BoxService boxService;
     @PostMapping
     public ResponseEntity<String> createBox(@RequestBody BoxCreateRequestDto boxCreateRequest) {
-        return ResponseEntity.ok(boxService.create(boxCreateRequest));
+        String createdBoxId = boxService.create(boxCreateRequest);
+        URI location = URI.create("/api/letter/" + createdBoxId);
+        return ResponseEntity.created(location).build();
     }
 
     @GetMapping
@@ -27,7 +30,10 @@ public class BoxController {
 
     @GetMapping("/{boxId}")
     public ResponseEntity<BoxGetResponseDto> getBox(@PathVariable Long boxId) {
-        return ResponseEntity.ok(boxService.get(boxId));
+        return ResponseEntity.ok(boxService.getById(boxId));
     }
+
+    @GetMapping("/{boxCode}")
+    public ResponseEntity<BoxGetResponseDto> getBoxByCode(@PathVariable String boxCode) { return ResponseEntity.ok(boxService.getByCode(boxCode));}
 
 }

@@ -1,15 +1,16 @@
 package com.likelion.springstudy.dto.response.box;
 
 import com.likelion.springstudy.domain.entity.Box;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.likelion.springstudy.dto.response.letter.LetterGetResponseDto;
 
-@AllArgsConstructor
-@Data
-public class BoxGetResponseDto {
-    private String name;
+import java.util.List;
 
-    public static BoxGetResponseDto of(Box box) {
-        return new BoxGetResponseDto(box.getName());
+public record BoxGetResponseDto(
+        String name,
+        List<LetterGetResponseDto> letters
+) {
+
+    public static BoxGetResponseDto of(Box box, List<LetterGetResponseDto> letters) {
+        return new BoxGetResponseDto(box.getName(), letters);
     }
 }

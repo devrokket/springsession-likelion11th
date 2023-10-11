@@ -26,6 +26,9 @@ public class Box {
     @Column(nullable = false)
     private String name;
 
+    // 편지함을 고유 식별자(url)를 코드로 나타냄. pk 값으로 url을 만들면 위험할 수 있음. (UUID)
+    private String code;
+
     private int letterLimit;
 
     @OneToOne(fetch = LAZY) // 연관관계 매핑 - 2.지연로딩
