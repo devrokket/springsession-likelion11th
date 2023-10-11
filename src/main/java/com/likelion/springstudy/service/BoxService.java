@@ -23,11 +23,12 @@ public class BoxService {
     private final BoxJpaRepository boxJpaRepository;
     private final LetterJpaRepository letterJpaRepository;
     @Transactional
-    public String create(BoxCreateRequestDto boxCreateRequest, ) {
+    public String create(BoxCreateRequestDto boxCreateRequest, Member) {
         // memberId, code도 불러와야 한다.
         Box box = boxJpaRepository.save(Box.builder()
                 .name(boxCreateRequest.getName())
                 // .code(generateCode())
+                        // .Member
                 .build());
         return box.getId().toString();
     }
