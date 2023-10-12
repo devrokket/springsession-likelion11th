@@ -17,21 +17,21 @@ import java.util.List;
 public class BoxController {
     private final BoxService boxService;
     @PostMapping
-    public ResponseEntity<String> createBox(@RequestBody BoxCreateRequestDto boxCreateRequest) {
-        String createdBoxId = boxService.create(boxCreateRequest);
+    public ResponseEntity<String> createBox(@RequestBody BoxCreateRequestDto boxCreateRequest, Long memberId) {
+        String createdBoxId = boxService.create(boxCreateRequest, memberId);
         URI location = URI.create("/api/letter/" + createdBoxId);
         return ResponseEntity.created(location).build();
     }
 
-    @GetMapping
-    public ResponseEntity<List<BoxGetResponseDto>> getBoxList() {
-        return ResponseEntity.ok(boxService.getAll());
-    }
+//    @GetMapping
+//    public ResponseEntity<List<BoxGetResponseDto>> getBoxList() {
+//        return ResponseEntity.ok(boxService.getAll());
+//    }
 
-    @GetMapping("/{boxId}")
-    public ResponseEntity<BoxGetResponseDto> getBox(@PathVariable Long boxId) {
-        return ResponseEntity.ok(boxService.getById(boxId));
-    }
+//    @GetMapping("/{boxId}")
+//    public ResponseEntity<BoxGetResponseDto> getBox(@PathVariable Long boxId) {
+//        return ResponseEntity.ok(boxService.getById(boxId));
+//    }
 
     @GetMapping("/{boxCode}")
     public ResponseEntity<BoxGetResponseDto> getBoxByCode(@PathVariable String boxCode) { return ResponseEntity.ok(boxService.getByCode(boxCode));}

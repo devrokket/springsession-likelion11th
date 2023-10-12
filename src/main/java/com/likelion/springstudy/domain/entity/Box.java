@@ -39,8 +39,10 @@ public class Box {
     private List<Letter> letters = new ArrayList<>();
 
     @Builder
-    public Box(String name, int letterLimit) {
+    public Box(String name, int letterLimit, String code, Member member) {
         this.name = name;
         this.letterLimit = letterLimit;
+        this.code = code;
+        this.member = member;
     }
 }
