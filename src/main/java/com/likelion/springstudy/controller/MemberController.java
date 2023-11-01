@@ -17,11 +17,11 @@ public class MemberController {
 
     private final MemberService memberService; // 의존성 주입 3개 방법 중 가장 많이 쓰이는 [생성자 주입 방식] private, final로 변화에 안전하기 때문
 
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity<Void> signIn(@RequestBody MemberSigninRequest request) {
         URI location = URI.create("/api/member/" + memberService.create(request));
         return ResponseEntity.created(location).build();
-    }
+    }*/
     @GetMapping("{memberId}")
     // 반환형은 ResponseEntity(스프링 제공), CustomResponse(추상화를 꼭 해야한다. 여러 api에서 사용돼야 하기 때문이다)
     // ResponseEntity<MemberGetResponse> 제네릭 타입 사용. 응답값은 api마다 달라지기 때문

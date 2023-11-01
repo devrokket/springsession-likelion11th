@@ -7,7 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice
+@RestControllerAdvice // 애플리케이션 내 모든 컨트롤러에서 발생하는 예외처리를 아래 메소드들이 담당하게 된다.
+// ControllerAdvide가 없다면 아래 ExceptionHandler 주석을 모든 컨트롤러마다 붙여줘야 한다.
 public class GlobalExceptionHandler {
 
     /**
