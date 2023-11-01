@@ -19,14 +19,13 @@ public class LetterController {
     private final LetterService letterService;
     @PostMapping // 다음 parameter가 없을 땐 안 써줘도 됨
     public ResponseEntity<String> sendLetter(@RequestBody LetterCreateRequestDto letterCreateRequest) {
-        return ResponseEntity.ok(letterService.create(letterCreateRequest));
-
-//        URI location = URI.create("/api/letter/");
-//        return ResponseEntity.created(location).build(); // created(location 자리)
+        String createdLetterId = letterService.create(letterCreateRequest);
+        URI location = URI.create("/api/letter/" + createdLetterId);
+        return ResponseEntity.created(location).build();
     }
 
     @GetMapping
-    public ResponseEntity<List<Letter>> getAllLetter() {
+    public ResponseEntity<List<LetterGetResponseDto>> getAllLetter() {
         return ResponseEntity.ok(letterService.getAll());
     }
 

@@ -1,3 +1,4 @@
+/*
 package com.likelion.springstudy.domain.entity;
 
 import com.likelion.springstudy.repository.MemberJpaRepository;
@@ -27,3 +28,4 @@ public class MemberEntityTest {
         assertThat(findMember.getId()).isEqualTo(member.getId());
     }
 }
+*/

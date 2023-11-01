@@ -10,6 +10,7 @@ import lombok.Data;
 public class LetterGetResponseDto {
     private String title;
     private String content;
+    private Long boxId;
 
     /**
      * 생성패턴 2. 팩토리 메서드 패턴
@@ -17,7 +18,7 @@ public class LetterGetResponseDto {
      * of, from 이름의 메서드를 사용하는 것이 일반적.
      */
     public static LetterGetResponseDto of(Letter letter) {
-        return new LetterGetResponseDto(letter.getTitle(), letter.getContent());
+        return new LetterGetResponseDto(letter.getTitle(), letter.getContent(), letter.getBox().getId());
     }
 
 }

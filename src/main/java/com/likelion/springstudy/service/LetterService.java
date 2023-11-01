@@ -3,6 +3,7 @@ package com.likelion.springstudy.service;
 import com.likelion.springstudy.domain.entity.Box;
 import com.likelion.springstudy.domain.entity.Letter;
 import com.likelion.springstudy.dto.request.letter.LetterCreateRequestDto;
+import com.likelion.springstudy.dto.response.box.BoxGetResponseDto;
 import com.likelion.springstudy.dto.response.letter.LetterGetResponseDto;
 import com.likelion.springstudy.repository.BoxJpaRepository;
 import com.likelion.springstudy.repository.LetterJpaRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,8 +42,9 @@ public class LetterService {
     }
 
     // 편지 목록 조회
-    public List<Letter> getAll() {
-        return letterJpaRepository.findAll();
+    public List<LetterGetResponseDto> getAll() {
+        List<Letter> letterList = letterJpaRepository.findAll();
+        return letterList.stream().map(LetterGetResponseDto::of).collect(Collectors.toList()); // stream 사용
     }
 
     // 편지 id 조회
