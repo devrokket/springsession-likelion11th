@@ -16,9 +16,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoxController {
     private final BoxService boxService;
-    @PostMapping
+
+    // memberId와 함께 편지함 생성하는 api 주석 처리
+/*    @PostMapping
     public ResponseEntity<String> createBox(@RequestBody BoxCreateRequestDto boxCreateRequest, Long memberId) {
         String createdBoxId = boxService.create(boxCreateRequest, memberId);
+        URI location = URI.create("/api/letter/" + createdBoxId);
+        return ResponseEntity.created(location).build();
+    }*/
+    @PostMapping
+    public ResponseEntity<String> createBox(@RequestBody BoxCreateRequestDto boxCreateRequest) {
+        String createdBoxId = boxService.create(boxCreateRequest);
         URI location = URI.create("/api/letter/" + createdBoxId);
         return ResponseEntity.created(location).build();
     }
