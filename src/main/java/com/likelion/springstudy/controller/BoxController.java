@@ -27,7 +27,7 @@ public class BoxController {
     @PostMapping
     public ResponseEntity<String> createBox(@RequestBody BoxCreateRequestDto boxCreateRequest) {
         String createdBoxId = boxService.create(boxCreateRequest);
-        URI location = URI.create("/api/letter/" + createdBoxId);
+        URI location = URI.create("/api/box/" + createdBoxId);
         return ResponseEntity.created(location).build();
     }
 
